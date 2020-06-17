@@ -4,6 +4,7 @@ import com.springframeworkguru.msscbeerservice.api.mapper.BeerMapper;
 import com.springframeworkguru.msscbeerservice.api.model.BeerDTO;
 import com.springframeworkguru.msscbeerservice.model.Beer;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -18,13 +19,19 @@ public class BeerController {
         this.beerMapper = beerMapper;
     }
 
+//    @GetMapping("/{id}")
+//    public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID id){
+//
+//        return new ResponseEntity<BeerDTO>(BeerDTO.builder().build(), HttpStatus.OK);
+//    }
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public BeerDTO getBeerById(@PathVariable UUID id){
 
-        Beer beer = Beer.builder().build();
-        return beerMapper.beerToToBeerDto(beer);
+        return BeerDTO.builder().build();
     }
+
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
