@@ -3,6 +3,7 @@ package com.springframeworkguru.msscbeerservice.controller.ExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -15,6 +16,17 @@ import java.util.List;
 public class MvcExceptionHandler {
 
     // Exception handler
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<List> validateArgumentHandler(MethodArgumentNotValidException ex){
+
+        List<String> errors = new ArrayList<>(ex.getBindingResult().getFieldErrors().size());
+        ex.getBindingResult().getFieldErrors().forEach(fieldError -> {
+            errors.add(fieldError.getField() + " : " + fieldError.getDefaultMessage());
+        });
+
+        return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<List> validateErrorHandler(ConstraintViolationException ex){
 

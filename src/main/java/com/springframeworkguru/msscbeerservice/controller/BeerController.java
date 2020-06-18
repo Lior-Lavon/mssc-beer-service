@@ -6,11 +6,17 @@ import javassist.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -32,7 +38,7 @@ public class BeerController {
     }
 
     @PostMapping()
-    public ResponseEntity saveNewBeer(@Valid @RequestBody BeerDTO beerDto){
+    public ResponseEntity saveNewBeer(@RequestBody @Valid BeerDTO beerDto){
 
         BeerDTO beerDTO = beerService.saveNewBeer(beerDto);
 
@@ -45,7 +51,7 @@ public class BeerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateBeerById(@PathVariable UUID id, @Valid @RequestBody BeerDTO beerDTO){
+    public ResponseEntity updateBeerById(@PathVariable UUID id, @RequestBody @Valid BeerDTO beerDTO){
 
         beerService.updateBeer(id, beerDTO);
 
@@ -57,5 +63,6 @@ public class BeerController {
     public void deleteBeerById(@PathVariable UUID id){
         beerService.deleteBeerById(id);
     }
+
 
 }

@@ -34,6 +34,7 @@ public class BeerDTO {
     private Timestamp lastModifiedAt;
 
     @NotBlank
+    @NotNull
     private String beerName;
 
     @NotNull
@@ -47,6 +48,6 @@ public class BeerDTO {
     @NotNull
     private BigDecimal price;
 
-//    private Integer minOnHand;
+    private Integer minOnHand;
     private Integer quantityToBrew;
 }
