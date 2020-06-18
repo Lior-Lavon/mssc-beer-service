@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -18,19 +19,20 @@ public class BeerDTO {
 
     private UUID id;
 
+    private Long version;
+
+    private Timestamp createdAt;
+
+    private Timestamp lastModifiedAt;
+
     private String beerName;
 
     private BeerStyleEnum beerStyle;
 
     private Long upc;
 
-    private Integer quantityOnHand;
-
     private BigDecimal price;
 
-    private Integer version;
-
-    private OffsetDateTime createdDate;
-
-    private OffsetDateTime lastModifiedDate;
+    private Integer minOnHand;
+    private Integer quantityToBrew;
 }

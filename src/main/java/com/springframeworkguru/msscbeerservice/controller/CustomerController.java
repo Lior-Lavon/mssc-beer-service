@@ -2,6 +2,7 @@ package com.springframeworkguru.msscbeerservice.controller;
 
 import com.springframeworkguru.msscbeerservice.api.model.CustomerDTO;
 import com.springframeworkguru.msscbeerservice.service.CustomerService;
+import lombok.Data;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
