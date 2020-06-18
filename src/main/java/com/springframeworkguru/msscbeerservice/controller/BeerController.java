@@ -3,6 +3,7 @@ package com.springframeworkguru.msscbeerservice.controller;
 import com.springframeworkguru.msscbeerservice.api.mapper.BeerMapper;
 import com.springframeworkguru.msscbeerservice.api.model.BeerDTO;
 import com.springframeworkguru.msscbeerservice.service.BeerService;
+import javassist.NotFoundException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class BeerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID id){
+    public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID id) throws NotFoundException {
         BeerDTO beerDTO = beerService.getBeerById(id);
         return new ResponseEntity<>(beerDTO, HttpStatus.OK);
     }
