@@ -2,13 +2,13 @@ package com.springframeworkguru.msscbeerservice.controller;
 
 import com.springframeworkguru.msscbeerservice.api.model.CustomerDTO;
 import com.springframeworkguru.msscbeerservice.service.CustomerService;
-import lombok.Data;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.UUID;
 
@@ -30,7 +30,7 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public ResponseEntity saveNewCustomer(@RequestBody CustomerDTO customerDTO){
+    public ResponseEntity saveNewCustomer(@Valid @RequestBody CustomerDTO customerDTO){
 
         CustomerDTO savedCustomer = customerService.saveNewCustomer(customerDTO);
 
@@ -43,7 +43,7 @@ public class CustomerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable UUID id, @RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<CustomerDTO> updateCustomer(@PathVariable UUID id, @Valid @RequestBody CustomerDTO customerDTO){
 
         CustomerDTO updatedCustomer = customerService.updateCustomer(id, customerDTO);
 

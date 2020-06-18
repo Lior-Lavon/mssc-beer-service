@@ -23,30 +23,37 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public BeerDTO getBeerById(UUID id) throws NotFoundException {
-        return beerRepository.findById(id)
-                .map(beer -> {
-                    return beerMapper.beerToToBeerDto(beer);
-                }).orElseThrow(() -> new NotFoundException("getBeerById : " + id + " not found"));
+//        return beerRepository.findById(id)
+//                .map(beer -> {
+//                    return beerMapper.beerToToBeerDto(beer);
+//                }).orElseThrow(() -> new NotFoundException("getBeerById : " + id + " not found"));
+        return BeerDTO.builder().id(id).build();
     }
 
     @Override
     public BeerDTO saveNewBeer(BeerDTO beerDTO) {
-        Beer beer = beerMapper.beerDtoToBeer(beerDTO);
-        Beer savedBeer = beerRepository.save(beer);
-        return beerMapper.beerToToBeerDto(savedBeer);
+
+//        beerDTO.setId(UUID.randomUUID());
+//        Beer beer = beerMapper.beerDtoToBeer(beerDTO);
+//        Beer savedBeer = beerRepository.save(beer);
+//        return beerMapper.beerToToBeerDto(savedBeer);
+
+        return BeerDTO.builder().id(UUID.randomUUID()).build();
     }
 
     @Override
     public BeerDTO updateBeer(UUID id, BeerDTO beerDTO) {
-        beerDTO.setId(id);
-        Beer beer = beerMapper.beerDtoToBeer(beerDTO);
-        Beer updatedBeer = beerRepository.save(beer);
-        return beerMapper.beerToToBeerDto(updatedBeer);
+//        beerDTO.setId(id);
+//        Beer beer = beerMapper.beerDtoToBeer(beerDTO);
+//        Beer updatedBeer = beerRepository.save(beer);
+//        return beerMapper.beerToToBeerDto(updatedBeer);
+
+        return BeerDTO.builder().id(id).build();
     }
 
     @Override
     public void deleteBeerById(UUID id) {
-        beerRepository.deleteById(id);
+        // ToDo beerRepository.deleteById(id);
     }
 
     @Override

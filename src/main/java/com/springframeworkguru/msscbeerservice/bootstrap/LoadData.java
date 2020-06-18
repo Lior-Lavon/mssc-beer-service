@@ -33,7 +33,7 @@ public class LoadData implements CommandLineRunner {
 
         if(beerService.count()==0){
 
-            beerService.saveNewBeer(BeerDTO.builder()
+            BeerDTO save1 = beerService.saveNewBeer(BeerDTO.builder()
                     .beerName("Mango Bobs")
                     .beerStyle(BeerStyleEnum.IPA)
                     .quantityToBrew(200)
@@ -42,7 +42,7 @@ public class LoadData implements CommandLineRunner {
                     .price(new BigDecimal("12.95"))
                     .build());
 
-            beerService.saveNewBeer(BeerDTO.builder()
+            BeerDTO save2 = beerService.saveNewBeer(BeerDTO.builder()
                     .beerName("Galaxy Cat")
                     .beerStyle(BeerStyleEnum.PALE_ALE)
                     .quantityToBrew(200)

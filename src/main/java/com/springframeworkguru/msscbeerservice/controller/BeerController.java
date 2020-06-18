@@ -1,6 +1,5 @@
 package com.springframeworkguru.msscbeerservice.controller;
 
-import com.springframeworkguru.msscbeerservice.api.mapper.BeerMapper;
 import com.springframeworkguru.msscbeerservice.api.model.BeerDTO;
 import com.springframeworkguru.msscbeerservice.service.BeerService;
 import javassist.NotFoundException;
@@ -10,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.UUID;
 
@@ -32,7 +32,7 @@ public class BeerController {
     }
 
     @PostMapping()
-    public ResponseEntity saveNewBeer(@RequestBody BeerDTO beerDto){
+    public ResponseEntity saveNewBeer(@Valid @RequestBody BeerDTO beerDto){
 
         BeerDTO beerDTO = beerService.saveNewBeer(beerDto);
 
@@ -45,7 +45,7 @@ public class BeerController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateBeerById(@PathVariable UUID id, @RequestBody BeerDTO beerDTO){
+    public ResponseEntity updateBeerById(@PathVariable UUID id, @Valid @RequestBody BeerDTO beerDTO){
 
         beerService.updateBeer(id, beerDTO);
 
@@ -53,8 +53,9 @@ public class BeerController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ResponseStatus(HttpStatus.OK)
     public void deleteBeerById(@PathVariable UUID id){
         beerService.deleteBeerById(id);
     }
+
 }
