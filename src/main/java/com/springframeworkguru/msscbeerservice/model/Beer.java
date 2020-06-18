@@ -47,3 +47,4 @@ public class Beer {
 
     private Integer quantityOnHand;
 }
+
