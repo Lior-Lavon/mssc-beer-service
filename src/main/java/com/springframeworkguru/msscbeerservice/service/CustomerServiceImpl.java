@@ -1,15 +1,17 @@
 package com.springframeworkguru.msscbeerservice.service;
 
 import com.springframeworkguru.msscbeerservice.api.model.CustomerDTO;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service
 public class CustomerServiceImpl implements CustomerService {
 
 
     @Override
     public CustomerDTO getCustomerById(UUID id) {
-        return CustomerDTO.builder().firstName("lior").build();
+        return CustomerDTO.builder().name("lior").build();
     }
 
     @Override
