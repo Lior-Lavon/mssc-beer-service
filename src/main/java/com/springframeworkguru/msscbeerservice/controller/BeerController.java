@@ -38,24 +38,26 @@ public class BeerController {
     }
 
     @PostMapping()
-    public ResponseEntity saveNewBeer(@RequestBody @Valid BeerDTO beerDto){
+    public ResponseEntity<BeerDTO> saveNewBeer(@RequestBody @Valid BeerDTO beerDto){
 
-        BeerDTO beerDTO = beerService.saveNewBeer(beerDto);
+        BeerDTO savedBeerDTO = beerService.saveNewBeer(beerDto);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(beerDTO.getId())
-                .toUri();
-        return ResponseEntity.status(CREATED).header(HttpHeaders.LOCATION, String.valueOf(location)).build();
+        return new ResponseEntity<>(savedBeerDTO, CREATED);
+
+//        URI location = ServletUriComponentsBuilder
+//                .fromCurrentRequest()
+//                .path("/{id}")
+//                .buildAndExpand(savedBeerDTO.getId())
+//                .toUri();
+//        return ResponseEntity.status(CREATED).header(HttpHeaders.LOCATION, String.valueOf(location)).build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateBeerById(@PathVariable UUID id, @RequestBody @Valid BeerDTO beerDTO){
+    public ResponseEntity<BeerDTO> updateBeerById(@PathVariable UUID id, @RequestBody @Valid BeerDTO beerDTO){
 
-        beerService.updateBeer(id, beerDTO);
+        BeerDTO updatedBeer = beerService.updateBeer(id, beerDTO);
 
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(updatedBeer, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

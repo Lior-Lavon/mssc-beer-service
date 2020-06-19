@@ -13,7 +13,7 @@ public interface BeerService {
 
     BeerDTO updateBeer(UUID id, BeerDTO beerDTO);
 
-    void deleteBeerById(UUID id);
+    String deleteBeerById(UUID id);
 
     Long count();
 }
