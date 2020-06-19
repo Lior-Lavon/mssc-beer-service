@@ -28,10 +28,10 @@ public class BeerDTO {
     private Long version;
 
     @Null
-    private Timestamp createdAt;
+    private OffsetDateTime createdAt;
 
     @Null
-    private Timestamp lastModifiedAt;
+    private OffsetDateTime lastModifiedAt;
 
     @NotBlank
     @NotNull
