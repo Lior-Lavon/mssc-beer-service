@@ -33,9 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 //@WebMvcTest(BeerController.class)
 
-//@WebMvcTest(controllers = BeerController.class)
 @RunWith(SpringRunner.class)
-//@ComponentScan(basePackages = {"org.springframework"})
 @SpringBootTest
 @AutoConfigureMockMvc
 class BeerControllerTest {

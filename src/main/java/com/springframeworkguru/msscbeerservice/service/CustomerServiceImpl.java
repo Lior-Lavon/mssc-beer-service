@@ -26,7 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomerById(UUID id) {
+    public String deleteCustomerById(UUID id) {
         // delete Customer
+        return "SUCCESS";
     }
 }

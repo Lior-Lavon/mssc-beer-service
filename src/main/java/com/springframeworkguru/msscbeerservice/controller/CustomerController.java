@@ -37,16 +37,11 @@ public class CustomerController {
     }
 
     @PostMapping()
-    public ResponseEntity saveNewCustomer(@Valid @RequestBody CustomerDTO customerDTO){
+    public ResponseEntity<CustomerDTO> saveNewCustomer(@Valid @RequestBody CustomerDTO customerDTO){
 
         CustomerDTO savedCustomer = customerService.saveNewCustomer(customerDTO);
 
-        URI location = ServletUriComponentsBuilder
-                .fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(savedCustomer.getId())
-                .toUri();
-        return ResponseEntity.status(CREATED).header(HttpHeaders.LOCATION, String.valueOf(location)).build();
+        return new ResponseEntity<>(savedCustomer, CREATED);
     }
 
     @PutMapping("/{id}")
@@ -54,7 +49,7 @@ public class CustomerController {
 
         CustomerDTO updatedCustomer = customerService.updateCustomer(id, customerDTO);
 
-        return new ResponseEntity<>(updatedCustomer, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
