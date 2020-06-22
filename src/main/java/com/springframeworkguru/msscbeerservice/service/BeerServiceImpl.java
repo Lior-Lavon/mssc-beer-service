@@ -2,7 +2,6 @@ package com.springframeworkguru.msscbeerservice.service;
 
 import com.springframeworkguru.msscbeerservice.api.mapper.BeerMapper;
 import com.springframeworkguru.msscbeerservice.api.model.BeerDTO;
-import com.springframeworkguru.msscbeerservice.model.Beer;
 import com.springframeworkguru.msscbeerservice.repository.BeerRepository;
 import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;

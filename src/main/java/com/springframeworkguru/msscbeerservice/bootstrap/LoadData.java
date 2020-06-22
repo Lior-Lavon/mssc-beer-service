@@ -1,7 +1,6 @@
 package com.springframeworkguru.msscbeerservice.bootstrap;
 
 import com.springframeworkguru.msscbeerservice.api.model.BeerDTO;
-import com.springframeworkguru.msscbeerservice.model.Beer;
 import com.springframeworkguru.msscbeerservice.model.BeerStyleEnum;
 import com.springframeworkguru.msscbeerservice.service.BeerService;
 import com.springframeworkguru.msscbeerservice.service.CustomerService;

@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 //@ComponentScan(basePackages = {"com.*"})
-@EntityScan(basePackages = {"com.*"})
-@EnableJpaRepositories(basePackages = {"com.*"})
+//@EntityScan(basePackages = {"com.*"})
+//@EnableJpaRepositories(basePackages = {"com.*"})
 public class MsscBeerServiceApplication {
 
     public static void main(String[] args) {
