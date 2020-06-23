@@ -1,5 +1,6 @@
 package com.springframeworkguru.msscbeerservice.api.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.springframeworkguru.msscbeerservice.model.BeerStyleEnum;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -26,14 +28,18 @@ public class BeerDTO {
     @Null
     private Long version;
 
+
     @Null
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime createdAt;
 
     @Null
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ssZ", shape = JsonFormat.Shape.STRING)
     private OffsetDateTime lastModifiedAt;
 
     @NotBlank
     @NotNull
+    @Size(min = 3, max = 100)
     private String beerName;
 
     @NotNull
@@ -43,10 +49,11 @@ public class BeerDTO {
     @NotNull
     private Long upc;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     @Positive
     @NotNull
     private BigDecimal price;
 
-    private Integer minOnHand;
-    private Integer quantityToBrew;
+    @Positive
+    private Integer quantityOnHand;
 }

@@ -33,21 +33,21 @@ NEW BEER
 
 One showing how to make a request using cURL:
 
-include::{snippets}/v1/beer-new/curl-request.adoc[]
+include::{snippets}/v1/beer-post/curl-request.adoc[]
 
 One showing the HTTP request:
 
-include::{snippets}/v1/beer-new/http-request.adoc[]
+include::{snippets}/v1/beer-post/http-request.adoc[]
 
 And one showing the HTTP response:
 
-include::{snippets}/v1/beer-new/http-response.adoc[]
+include::{snippets}/v1/beer-post/http-response.adoc[]
 
 Response Body:
-include::{snippets}/v1/beer-new/response-body.adoc[]
+include::{snippets}/v1/beer-post/response-body.adoc[]
 
 Request Fields
-include::{snippets}/v1/beer-new/request-fields.adoc[]
+include::{snippets}/v1/beer-post/request-fields.adoc[]
 
 Response Fields:
 include::{snippets}
