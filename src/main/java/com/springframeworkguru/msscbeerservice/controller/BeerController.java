@@ -24,31 +24,17 @@ public class BeerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID id) throws NotFoundException {
-        BeerDTO beerDTO = beerService.getBeerById(id);
-        return new ResponseEntity<>(beerDTO, HttpStatus.OK);
+        return new ResponseEntity<>(beerService.getBeerById(id), HttpStatus.OK);
     }
 
     @PostMapping()
     public ResponseEntity<BeerDTO> saveNewBeer(@RequestBody @Valid BeerDTO beerDto){
-
-        BeerDTO savedBeerDTO = beerService.saveNewBeer(beerDto);
-
-        return new ResponseEntity<>(savedBeerDTO, CREATED);
-
-//        URI location = ServletUriComponentsBuilder
-//                .fromCurrentRequest()
-//                .path("/{id}")
-//                .buildAndExpand(savedBeerDTO.getId())
-//                .toUri();
-//        return ResponseEntity.status(CREATED).header(HttpHeaders.LOCATION, String.valueOf(location)).build();
+        return new ResponseEntity<>(beerService.saveNewBeer(beerDto), CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<BeerDTO> updateBeerById(@PathVariable UUID id, @RequestBody @Valid BeerDTO beerDTO){
-
-        BeerDTO updatedBeer = beerService.updateBeer(id, beerDTO);
-
-        return new ResponseEntity<>(updatedBeer, HttpStatus.OK);
+        return new ResponseEntity<>(beerService.updateBeer(id, beerDTO), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

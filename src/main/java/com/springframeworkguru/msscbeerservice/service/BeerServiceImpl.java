@@ -2,8 +2,9 @@ package com.springframeworkguru.msscbeerservice.service;
 
 import com.springframeworkguru.msscbeerservice.api.mapper.BeerMapper;
 import com.springframeworkguru.msscbeerservice.api.model.BeerDTO;
+import com.springframeworkguru.msscbeerservice.controller.NotFoundException;
+import com.springframeworkguru.msscbeerservice.model.Beer;
 import com.springframeworkguru.msscbeerservice.repository.BeerRepository;
-import javassist.NotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -22,37 +23,34 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public BeerDTO getBeerById(UUID id) throws NotFoundException {
-//        return beerRepository.findById(id)
-//                .map(beer -> {
-//                    return beerMapper.beerToToBeerDto(beer);
-//                }).orElseThrow(() -> new NotFoundException("getBeerById : " + id + " not found"));
-        return BeerDTO.builder().id(id).build();
+        return beerRepository.findById(id)
+                .map(beer -> {
+                    return beerMapper.beerToToBeerDto(beer);
+                }).orElseThrow(() -> new NotFoundException("getBeerById : " + id + " not found"));
     }
 
     @Override
     public BeerDTO saveNewBeer(BeerDTO beerDTO) {
-
-//        beerDTO.setId(UUID.randomUUID());
-//        Beer beer = beerMapper.beerDtoToBeer(beerDTO);
-//        Beer savedBeer = beerRepository.save(beer);
-//        return beerMapper.beerToToBeerDto(savedBeer);
-
-        return BeerDTO.builder().id(UUID.randomUUID()).build();
+        Beer beer = beerMapper.beerDtoToBeer(beerDTO);
+        Beer savedBeer = beerRepository.save(beer);
+        return beerMapper.beerToToBeerDto(savedBeer);
     }
 
     @Override
     public BeerDTO updateBeer(UUID id, BeerDTO beerDTO) {
-//        beerDTO.setId(id);
-//        Beer beer = beerMapper.beerDtoToBeer(beerDTO);
-//        Beer updatedBeer = beerRepository.save(beer);
-//        return beerMapper.beerToToBeerDto(updatedBeer);
 
-        return BeerDTO.builder().id(id).build();
+        Beer beer = beerRepository.findById(id).orElseThrow(() -> new NotFoundException("getBeerById : " + id + " not found"));
+        beer.setBeerName(beerDTO.getBeerName());
+        beer.setBeerStyle(beerDTO.getBeerStyle());
+        beer.setPrice(beerDTO.getPrice());
+        beer.setUpc(beerDTO.getUpc());
+
+        return beerMapper.beerToToBeerDto(beerRepository.save(beer));
     }
 
     @Override
     public String deleteBeerById(UUID id) {
-        // ToDo beerRepository.deleteById(id);
+        beerRepository.deleteById(id);
         return "String";
     }
 
