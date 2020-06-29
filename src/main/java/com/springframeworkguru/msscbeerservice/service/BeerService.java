@@ -21,4 +21,6 @@ public interface BeerService {
     String deleteBeerById(UUID id);
 
     Long count();
+
+    BeerDTO getBeerByUpc(String upc, Boolean showInventory);
 }

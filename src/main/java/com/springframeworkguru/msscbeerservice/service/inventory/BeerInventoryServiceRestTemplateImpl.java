@@ -15,12 +15,14 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Slf4j
-@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false) // mapp to the application.property to get the value for beerInventoryServiceHost
+@ConfigurationProperties(prefix = "sfg.brewery", ignoreUnknownFields = false) // map to the application.property to get the value for beerInventoryServiceHost
 @Component
 public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryService {
 
     private final String INVENTORY_PATH = "/api/v1/beer/{beerId}/inventory";
     private String beerInventoryServiceHost;
+
+    @Autowired
     private RestTemplate restTemplate;
 
 //    public BeerInventoryServiceRestTemplateImpl(RestTemplate restTemplate) {
@@ -36,7 +38,7 @@ public class BeerInventoryServiceRestTemplateImpl implements BeerInventoryServic
 
         log.debug("Calling Inventory Service");
 
-        restTemplate = new RestTemplate();
+//        restTemplate = new RestTemplate();
         ResponseEntity<List<BeerInventoryDto>> responseEntity = restTemplate
                 .exchange(beerInventoryServiceHost + INVENTORY_PATH, HttpMethod.GET, null,
                         new ParameterizedTypeReference<List<BeerInventoryDto>>() {}, beerId);

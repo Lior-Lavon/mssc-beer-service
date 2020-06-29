@@ -54,31 +54,13 @@ class BeerControllerTest {
     @Test
     void getBeerById() throws Exception {
 
-        when(beerService.getBeerById(any(), false)).thenReturn(BeerDTO.builder().build());
+        when(beerService.getBeerById(any(), any())).thenReturn(BeerDTO.builder().build());
 
         // {beerId} : example of pathParameter with RestDocs
         mockMvc.perform(get("/api/v1/beers/{beerId}", UUID.randomUUID().toString())
-                .param("isCold", "yes") // isCold: example of queryParam with RestDocs
+                .param("showInventory", "false") // isCold: example of queryParam with RestDocs
                 .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
-//                .andDo(document("v1/beers-get",
-//                        pathParameters( // RestDoc Path Parameters
-//                            parameterWithName("beerId").description("UUID of desired beer to get.")
-//                        ),
-//                        requestParameters( // RestDoc request parameters
-//                            parameterWithName("isCold").description("Is Beer cold query param")
-//                        ),
-//                        responseFields( // RestDoc Pojo parameters
-//                            fieldWithPath("id").description("Id  of Beer"),
-//                            fieldWithPath("version").description("Version number"),
-//                            fieldWithPath("createdAt").description("Date created"),
-//                            fieldWithPath("lastModifiedAt").description("Last Modified date"),
-//                            fieldWithPath("beerName").description("Beer Name"),
-//                            fieldWithPath("beerStyle").description("Beer Style"),
-//                            fieldWithPath("upc").description("UPC of Beer"),
-//                            fieldWithPath("price").description("Price"),
-//                            fieldWithPath("quantityOnHand").description("Quantity On Hand")
-//                        )));
     }
 
     @Test
@@ -96,25 +78,10 @@ class BeerControllerTest {
 
         when(beerService.saveNewBeer(any())).thenReturn(BeerDTO.builder().build());
 
-        ConstrainedFields fields = new ConstrainedFields(BeerDTO.class);
-
         mockMvc.perform(post("/api/v1/beers")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(beerDtoJson))
                 .andExpect(status().isCreated());
-//                .andDo(document("v1/beers-post",
-//                        requestFields(
-//                                fields.withPath("id").ignored(),
-//                                fields.withPath("version").ignored(),
-//                                fields.withPath("createdAt").ignored(),
-//                                fields.withPath("lastModifiedAt").ignored(),
-//                                fields.withPath("beerName").description("Name of Beer"),
-//                                fields.withPath("beerStyle").description("Style of Beer"),
-//                                fields.withPath("upc").description("UPC of Beer"),
-//                                fields.withPath("price").description("Price of Beer"),
-//                                fields.withPath("quantityOnHand").ignored()
-//
-//                        )));
     }
 
     @Test

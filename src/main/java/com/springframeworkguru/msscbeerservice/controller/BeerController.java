@@ -4,7 +4,9 @@ import com.springframeworkguru.msscbeerservice.api.model.BeerDTO;
 import com.springframeworkguru.msscbeerservice.model.BeerPagedList;
 import com.springframeworkguru.msscbeerservice.service.BeerService;
 import javassist.NotFoundException;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,7 @@ import java.util.UUID;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("/api/v1/beers")
+@RequestMapping("/api/v1")
 public class BeerController {
 
     private static final Integer DEFAULT_PAGE_NUMBER = 0;
@@ -27,12 +29,12 @@ public class BeerController {
         this.beerService = beerService;
     }
 
-    @GetMapping(produces = { "application/json" })
+    @GetMapping(produces = { "application/json" }, path = "/beers")
     public ResponseEntity<BeerPagedList> listBeers(@RequestParam(value = "pageNumber", required = false) Integer pageNumber,
                                                    @RequestParam(value = "pageSize", required = false) Integer pageSize,
                                                    @RequestParam(value = "beerName", required = false) String beerName,
                                                    @RequestParam(value = "beerStyle", required = false) String beerStyle,
-                                                   @RequestParam(value = "showInventory", defaultValue = "false", required = false) Boolean showInventory){
+                                                   @RequestParam(name = "showInventory", defaultValue = "false", required = false) Boolean showInventory){
 
         if(showInventory==null)
             showInventory = false;
@@ -49,27 +51,39 @@ public class BeerController {
         return new ResponseEntity<>(beerList, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID id,
-                                               @RequestParam(name = "showInventoryParam", defaultValue = "false", required = false) Boolean showInventory) throws NotFoundException {
-        return new ResponseEntity<>(beerService.getBeerById(id, showInventory), HttpStatus.OK);
+    @GetMapping("/beers/{beerId}")
+    public ResponseEntity<BeerDTO> getBeerById(@PathVariable UUID beerId,
+                                               @RequestParam(name = "showInventory", defaultValue = "false", required = false) Boolean showInventory) throws NotFoundException {
+
+        if(showInventory==null)
+            showInventory = false;
+
+        System.out.println("getBeerById: I was called");
+        BeerDTO dto = beerService.getBeerById(beerId, showInventory);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
-    @PostMapping()
+    @PostMapping("/beers")
     public ResponseEntity<BeerDTO> saveNewBeer(@RequestBody @Valid BeerDTO beerDto){
         return new ResponseEntity<>(beerService.saveNewBeer(beerDto), CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/beers/{id}")
     public ResponseEntity<BeerDTO> updateBeerById(@PathVariable UUID id, @RequestBody @Valid BeerDTO beerDTO){
         return new ResponseEntity<>(beerService.updateBeer(id, beerDTO), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/beers/{id}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteBeerById(@PathVariable UUID id){
         beerService.deleteBeerById(id);
     }
 
+    @GetMapping("/beerUpc/{upc}")
+    public ResponseEntity<BeerDTO> getByUpc(@PathVariable String upc,
+                @RequestParam(name = "showInventory", defaultValue = "false", required = false) Boolean showInventory){
+
+        return new ResponseEntity<>(beerService.getBeerByUpc(upc, showInventory), HttpStatus.OK);
+    }
 
 }
