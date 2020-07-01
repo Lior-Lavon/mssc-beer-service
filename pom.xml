@@ -13,7 +13,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.springframeworkguru</groupId>
+    <groupId>guru.sfg</groupId>
     <artifactId>mssc-beer-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>mssc-beer-service</name>
